@@ -1,2 +1,2 @@
 # SpringBoot-MyBatis
-Spring boot + MyBatis 提供 SaaS 服务
+Spring boot + MyBatis 提供 RESTful 风格 SaaS 服务
