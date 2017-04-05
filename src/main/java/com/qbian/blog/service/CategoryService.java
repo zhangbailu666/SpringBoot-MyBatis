@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.UUID;
@@ -32,6 +33,7 @@ public class CategoryService {
      * @param category 待保存或更新的对象
      * @return
      */
+    @Transactional
     public void save(Category category) {
         if(null == category.getId()) { // 保存
             category.setId(UUID.randomUUID().toString().replaceAll("-",""));
@@ -54,6 +56,7 @@ public class CategoryService {
      * @param id 删除对象的id
      * @return
      */
+    @Transactional
     public void deleteByKey(String id) {
         CategoryInfoDto categoryInfoDto = categoryDao.findInfoByKey(id, Const.UN_DELETE);
         if(null != categoryInfoDto) {
@@ -71,6 +74,7 @@ public class CategoryService {
      * @param id 查找的id
      * @return
      */
+    @Transactional(readOnly = true)
     public Node<CategoryInfoDto> getOne(String id) {
         CategoryInfoDto categoryInfoDto = categoryDao.findInfoByKey(id, Const.UN_DELETE);
         if(null != categoryInfoDto) {
@@ -86,6 +90,7 @@ public class CategoryService {
      * @param pageSize 每页数量
      * @return
      */
+    @Transactional(readOnly = true)
     public Node<ListNode> getList(int pageNo, int pageSize) {
         pageNo = pageNo > 1 ? pageNo : 1;
         CategoriesByPageDto categoriesByPageDto = new CategoriesByPageDto(

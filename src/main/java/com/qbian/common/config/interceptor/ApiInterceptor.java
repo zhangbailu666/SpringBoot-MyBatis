@@ -33,7 +33,7 @@ public class ApiInterceptor extends HandlerInterceptorAdapter {
         String uri = request.getRequestURI();
         String method = request.getMethod();
         LOG.info("=================Received Request==================");
-        LOG.info("请求方法：" + method + " ===》接口签名：" + uri);
+        LOG.info("Method：" + method + " ===》 Interface：" + uri);
 
         // 异常返回（系统错误）
         if("/error".equals(uri)) {
@@ -64,7 +64,7 @@ public class ApiInterceptor extends HandlerInterceptorAdapter {
                 sb.append(s);
             }
             String requestData = sb.toString();
-            LOG.info("请求参数：" + requestData);
+            LOG.info("Request param：" + requestData);
             if(StringUtils.isEmpty(requestData)) {
                 response.getWriter().write(new Node(-902).toJsonString());
                 return false;

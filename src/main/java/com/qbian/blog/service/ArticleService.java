@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 
@@ -35,6 +36,7 @@ public class ArticleService {
      * 保存或更新
      * @param article
      */
+    @Transactional
     public void save(Article article) {
         // 保存
         if(null == article.getId()
@@ -62,6 +64,7 @@ public class ArticleService {
      * 根据 key 删除一条记录
      * @param id key
      */
+    @Transactional
     public void deleteByKey(String id) {
         ArticleInfoDto articleInfoDto = articleDao.findInfoByKey(id, Const.UN_DELETE);
         if(null != articleInfoDto) {
@@ -79,6 +82,7 @@ public class ArticleService {
      * @param id key
      * @return  ArticleInfoDto
      */
+    @Transactional(readOnly = true)
     public Node<ArticleInfoDto> getOne(String id) {
         ArticleInfoDto articleInfoDto = articleDao.findInfoByKey(id, Const.UN_DELETE);
         if(null != articleInfoDto) {
@@ -104,6 +108,7 @@ public class ArticleService {
      * @param categoryId 类别id
      * @return
      */
+    @Transactional(readOnly = true)
     public Node<ListNode> getList(int pageNo, int pageSize, String categoryId) {
         pageNo = pageNo > 1 ? pageNo : 1;
         categoryId = "all".equals(categoryId) ? null : categoryId;
